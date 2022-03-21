@@ -1,0 +1,26 @@
+specVersion: 0.0.1
+schema:
+  file: ./schema.graphql
+dataSources:
+  - kind: ethereum
+    name: ETHPool
+    network: kovan
+    source:
+      address: "0xc2FddDDAF6Af6C33d6B4C24a4efF74506b849BE1"
+      abi: ETHPool
+    mapping:
+      kind: ethereum/events
+      apiVersion: 0.0.5
+      language: wasm/assemblyscript
+      entities:
+        - Deposit
+        - Withdraw
+      abis:
+        - name: ETHPool
+          file: ./abis/ETHPool.json
+      eventHandlers:
+        - event: Deposit(address,uint256)
+          handler: handleDeposit
+        - event: Withdraw(address,uint256)
+          handler: handleWithdraw
+      file: ./src/mapping.ts
